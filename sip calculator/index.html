@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financial Calculator</title>
+    <!-- Load Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <!-- Load Chart.js for data visualization -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Link to your custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="p-5">
+
+    <h1 class="text-3xl font-bold mb-4">Financial Calculators</h1>
+
+    <!-- Calculator Selection Buttons -->
+    <div id="calculatorOptions" class="mb-5 flex flex-wrap">
+        <button class="px-4 py-2 rounded-md shadow-md hover:shadow-lg" onclick="showCalculator('sipCalculatorContainer')"> SIP Calculator </button>
+        <button class="px-4 py-2 rounded-md shadow-md hover:shadow-lg" onclick="showCalculator('fdCalculatorContainer')"> FD Calculator </button>
+        <button class="px-4 py-2 rounded-md shadow-md hover:shadow-lg" onclick="showCalculator('emiCalculatorContainer')"> EMI Calculator </button>
+    </div>
+
+    <!-- SIP Calculator Container -->
+    <div class="calculator-container active" id="sipCalculatorContainer">
+        <h2 class="text-2xl font-semibold mb-3">SIP Calculator</h2>
+        <label for="sipAmount">Monthly Investment </label>
+        <input type="text" id="sipAmount" placeholder="e.g., 10000 or ten thousand"><br>
+        <label for="sipRate">Annual Interest Rate </label>
+        <input type="text" id="sipRate" placeholder="e.g., 8.5 or eight and a half percent"><br>
+        <label for="sipTenure">Investment Tenure (Years):</label>
+        <div class="flex items-center mb-3">
+            <input type="range" id="sipTenure" min="1" max="30" value="1"
+                oninput="document.getElementById('sipTenureValue').textContent = this.value;" class="flex-grow mr-2">
+            <span id="sipTenureValue" class="font-medium">1</span> Years
+        </div>
+        <label for="sipInflation">Annual Inflation Rate (%):</label>
+        <input type="number" id="sipInflation" value="6" placeholder="e.g., 6"><br>
+        <button id="sipCalculateButton" class="px-4 py-2 rounded-md shadow-md hover:shadow-lg" onclick="calculateSIP()">Calculate</button>
+        <div id="sipResult" class="result mt-3"></div>
+        <div id="sipNumberName" class="number-name"></div>
+        <div id="sipChartContainer" class="chart-container"></div>
+        <button class="px-4 py-2 rounded-md shadow-md hover:shadow-lg mt-3" onclick="saveResult('sip', document.getElementById('sipResult').innerText)">Save Result</button>
+    </div>
+
+    <!-- FD Calculator Container -->
+    <div class="calculator-container" id="fdCalculatorContainer">
+        <h2 class="text-2xl font-semibold mb-3">FD Calculator</h2>
+        <label for="fdPrincipal">Principal Amount </label>
+        <input type="text" id="fdPrincipal" placeholder="e.g., 500000 or five lakh"><br>
+        <label for="fdRate">Annual Interest Rate (%) </label>
+        <input type="text" id="fdRate" placeholder="e.g., 7 or seven percent"><br>
+        <label for="fdTenure">Investment Tenure (Years):</label>
+        <div class="flex items-center mb-3">
+            <input type="range" id="fdTenure" min="1" max="30" value="1"
+                oninput="document.getElementById('fdTenureValue').textContent = this.value;" class="flex-grow mr-2">
+            <span id="fdTenureValue" class="font-medium">1</span> Years
+        </div>
+        <label for="fdInflation">Annual Inflation Rate (%):</label>
+        <input type="number" id="fdInflation" value="6" placeholder="e.g., 6"><br>
+        <button id="fdCalculateButton" class="px-4 py-2 rounded-md shadow-md hover:shadow-lg" onclick="calculateFD()">Calculate</button>
+        <div id="fdResult" class="result mt-3"></div>
+        <div id="fdNumberName" class="number-name"></div>
+        <div id="fdChartContainer" class="chart-container"></div>
+        <button class="px-4 py-2 rounded-md shadow-md hover:shadow-lg mt-3" onclick="saveResult('fd', document.getElementById('fdResult').innerText)">Save Result</button>
+    </div>
+
+    <!-- EMI Calculator Container -->
+    <div class="calculator-container" id="emiCalculatorContainer">
+        <h2 class="text-2xl font-semibold mb-3">EMI Calculator</h2>
+        <label for="loanAmount">Loan Amount </label>
+        <input type="text" id="loanAmount" placeholder="e.g., 3000000 or thirty lakh"><br>
+        <label for="interestRate">Annual Interest Rate (%) </label>
+        <input type="text" id="interestRate" placeholder="e.g., 9.5 or nine and a half percent"><br>
+        <label for="loanTenure">Loan Tenure (Years):</label>
+        <div class="flex items-center mb-3">
+            <input type="range" id="loanTenure" min="1" max="30" value="1"
+                oninput="document.getElementById('loanTenureValue').textContent = this.value;" class="flex-grow mr-2">
+            <span id="loanTenureValue" class="font-medium">1</span> Years
+        </div>
+        <button id="emiCalculateButton" class="px-4 py-2 rounded-md shadow-md hover:shadow-lg" onclick="calculateEMI()">Calculate</button>
+        <div id="emiResult" class="result mt-3"></div>
+        <div id="emiNumberName" class="number-name"></div>
+        <div id="emiChartContainer" class="chart-container"></div>
+        <button class="px-4 py-2 rounded-md shadow-md hover:shadow-lg mt-3" onclick="saveResult('emi', document.getElementById('emiResult').innerText)">Save Result</button>
+    </div>
+
+    <h2 class="text-2xl font-semibold mt-8 mb-3">Saved Results</h2>
+    <div id="savedResults" class="p-4 rounded-lg shadow-md">No results saved yet.</div>
+    <br/>
+    <br/>
+    <br/>
+    <h2>-Mukul Goel</h2>
+
+    <!-- Link to custom JS -->
+    <script src="script.js"></script>
+</body>
+</html>
